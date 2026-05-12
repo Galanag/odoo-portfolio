@@ -1,0 +1,723 @@
+<!-- ============================================================
+     GALANA GAROMA — PORTFOLIO BLOCK FOR ODOO WEBSITE BUILDER
+     Paste this in: Website Editor → +New Block → HTML Block
+     All classes prefixed with "gg-" to avoid Odoo Bootstrap clash
+     ============================================================ -->
+
+<style>
+/* ── RESET for this block only ── */
+#gg-portfolio *{box-sizing:border-box;margin:0;padding:0;}
+#gg-portfolio a{text-decoration:none;}
+#gg-portfolio ul{list-style:none;}
+#gg-portfolio img{max-width:100%;display:block;}
+
+/* ── TOKENS ── */
+#gg-portfolio{
+  --gg-bg:#0a0f1e;
+  --gg-bg2:#0d1428;
+  --gg-bg3:#111a35;
+  --gg-accent:#7e6cfa;
+  --gg-green:#00d4aa;
+  --gg-red:#ff6b6b;
+  --gg-text:#e8eaf6;
+  --gg-muted:#9ba3c7;
+  --gg-dim:#5c6490;
+  --gg-border:rgba(126,108,250,0.2);
+  --gg-card:#111a35;
+  --gg-r:14px;
+  --gg-fh:'Syne',sans-serif;
+  --gg-fb:'DM Sans',sans-serif;
+  font-family:var(--gg-fb);
+  color:var(--gg-text);
+  background:var(--gg-bg);
+  line-height:1.7;
+  font-size:16px;
+}
+
+/* ── GOOGLE FONTS ── */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ── SECTION WRAPPER ── */
+.gg-sec{padding:80px 6%;}
+.gg-sec-alt{background:var(--gg-bg2);}
+.gg-inner{max-width:1140px;margin:0 auto;}
+.gg-label{display:inline-flex;align-items:center;gap:.5rem;color:var(--gg-accent);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.7rem;}
+.gg-label::before{content:'';display:block;width:18px;height:2px;background:var(--gg-accent);}
+.gg-h2{font-family:var(--gg-fh);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:.5rem;}
+.gg-sub{color:var(--gg-muted);font-size:.95rem;font-weight:300;max-width:520px;margin-bottom:2.5rem;line-height:1.75;}
+
+/* ── HERO ── */
+.gg-hero{
+  background:var(--gg-bg);
+  padding:70px 6% 60px;
+  position:relative;
+  overflow:hidden;
+}
+.gg-hero-bg{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(126,108,250,.04) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(126,108,250,.04) 1px,transparent 1px);
+  background-size:48px 48px;
+  pointer-events:none;
+}
+.gg-orb{position:absolute;border-radius:50%;pointer-events:none;}
+.gg-orb1{width:380px;height:380px;background:radial-gradient(circle,rgba(126,108,250,.18),transparent 70%);top:-80px;left:-80px;}
+.gg-orb2{width:280px;height:280px;background:radial-gradient(circle,rgba(0,212,170,.12),transparent 70%);bottom:-40px;right:-40px;}
+
+.gg-hero-grid{
+  display:grid;
+  grid-template-columns:1fr 380px;
+  gap:3rem;
+  align-items:center;
+  max-width:1140px;
+  margin:0 auto;
+  position:relative;
+  z-index:1;
+}
+.gg-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(126,108,250,.1);
+  border:1px solid var(--gg-border);
+  border-radius:40px;padding:.3rem .9rem;
+  font-size:.72rem;font-weight:700;
+  color:var(--gg-accent);letter-spacing:.07em;text-transform:uppercase;
+  margin-bottom:1.3rem;
+}
+.gg-dot{width:7px;height:7px;background:var(--gg-green);border-radius:50%;animation:gg-pulse 2s infinite;}
+@keyframes gg-pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.5);}}
+
+.gg-h1{
+  font-family:var(--gg-fh);
+  font-size:clamp(2.2rem,5vw,3.6rem);
+  font-weight:800;letter-spacing:-1.5px;line-height:1.08;
+  margin-bottom:1.1rem;
+}
+.gg-h1 .gg-accent-text{color:var(--gg-accent);}
+.gg-hero-desc{color:var(--gg-muted);font-size:1rem;font-weight:300;max-width:460px;margin-bottom:1.8rem;line-height:1.75;}
+
+.gg-btn-row{display:flex;gap:.9rem;flex-wrap:wrap;margin-bottom:2.2rem;}
+.gg-btn{display:inline-block;padding:.72rem 1.7rem;border-radius:10px;font-weight:600;font-size:.88rem;transition:all .2s;border:2px solid transparent;font-family:var(--gg-fb);}
+.gg-btn-p{background:var(--gg-accent);color:#fff;}
+.gg-btn-p:hover{background:transparent;border-color:var(--gg-accent);color:var(--gg-accent);}
+.gg-btn-o{background:transparent;color:var(--gg-text);border:1.5px solid var(--gg-border);}
+.gg-btn-o:hover{border-color:var(--gg-green);color:var(--gg-green);}
+
+.gg-stats{display:flex;gap:2rem;flex-wrap:wrap;}
+.gg-stat-num{font-family:var(--gg-fh);font-size:1.8rem;font-weight:800;display:block;}
+.gg-stat-lbl{font-size:.68rem;color:var(--gg-dim);text-transform:uppercase;letter-spacing:.09em;display:block;}
+
+/* AVATAR CARD */
+.gg-avatar-card{
+  background:var(--gg-card);
+  border:1px solid var(--gg-border);
+  border-radius:22px;padding:2rem 1.5rem;
+  display:flex;flex-direction:column;align-items:center;gap:.8rem;
+  position:relative;overflow:hidden;
+}
+.gg-avatar-card::after{
+  content:'';position:absolute;top:-50px;right:-50px;
+  width:160px;height:160px;
+  background:radial-gradient(circle,rgba(126,108,250,.15),transparent 70%);
+  pointer-events:none;
+}
+.gg-av-ring{
+  width:110px;height:110px;border-radius:50%;
+  border:3px solid var(--gg-accent);padding:3px;
+  background:linear-gradient(135deg,var(--gg-accent),var(--gg-green));
+}
+.gg-av-inner{
+  width:100%;height:100%;border-radius:50%;
+  background:var(--gg-bg3);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--gg-fh);font-size:2.4rem;font-weight:800;color:var(--gg-accent);
+}
+.gg-av-name{font-family:var(--gg-fh);font-size:1.2rem;font-weight:700;}
+.gg-av-role{font-size:.8rem;color:var(--gg-green);font-weight:500;}
+.gg-av-url{font-size:.74rem;color:var(--gg-dim);background:var(--gg-bg3);padding:.28rem .8rem;border-radius:20px;border:1px solid var(--gg-border);}
+.gg-av-url a{color:var(--gg-accent);}
+.gg-tags{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-top:.3rem;}
+.gg-tag{background:rgba(126,108,250,.1);border:1px solid var(--gg-border);border-radius:5px;padding:.2rem .6rem;font-size:.69rem;color:var(--gg-accent);font-weight:500;}
+.gg-tag.g{background:rgba(0,212,170,.08);border-color:rgba(0,212,170,.2);color:var(--gg-green);}
+.gg-av-loc{font-size:.7rem;color:var(--gg-dim);text-align:center;}
+
+/* ABOUT */
+.gg-about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:3.5rem;align-items:start;}
+.gg-about-p{color:var(--gg-muted);font-weight:300;margin-bottom:.9rem;line-height:1.8;}
+.gg-about-p strong{color:var(--gg-text);font-weight:500;}
+.gg-edu{background:var(--gg-card);border:1px solid var(--gg-border);border-radius:var(--gg-r);padding:1.2rem;display:flex;gap:.9rem;align-items:flex-start;margin-top:1rem;}
+.gg-edu-ico{width:42px;height:42px;background:rgba(126,108,250,.12);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.2rem;}
+.gg-edu-deg{font-weight:600;font-size:.88rem;margin-bottom:.15rem;}
+.gg-edu-inst{font-size:.76rem;color:var(--gg-green);}
+.gg-edu-yr{font-size:.7rem;color:var(--gg-dim);margin-top:.15rem;}
+
+.gg-info-list{display:flex;flex-direction:column;gap:.8rem;}
+.gg-info-row{display:flex;align-items:center;gap:.8rem;padding:.75rem .9rem;background:var(--gg-card);border:1px solid var(--gg-border);border-radius:10px;}
+.gg-info-ico{width:34px;height:34px;border-radius:8px;background:rgba(0,212,170,.1);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;}
+.gg-info-lbl{font-size:.7rem;color:var(--gg-dim);display:block;}
+.gg-info-val{font-size:.85rem;color:var(--gg-text);font-weight:500;}
+.gg-info-val a{color:var(--gg-accent);}
+
+/* SKILLS */
+.gg-skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.1rem;}
+.gg-sk-card{background:var(--gg-card);border:1px solid var(--gg-border);border-radius:var(--gg-r);padding:1.4rem;transition:border-color .2s,transform .2s;}
+.gg-sk-card:hover{border-color:var(--gg-accent);transform:translateY(-3px);}
+.gg-sk-ico{width:46px;height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:.9rem;}
+.gg-sk-card h3{font-family:var(--gg-fh);font-size:.95rem;font-weight:700;margin-bottom:.4rem;}
+.gg-sk-card p{font-size:.8rem;color:var(--gg-muted);line-height:1.6;}
+.gg-pills{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.7rem;}
+.gg-pill{background:var(--gg-bg3);border:1px solid var(--gg-border);border-radius:4px;padding:.15rem .55rem;font-size:.67rem;color:var(--gg-muted);}
+
+/* ODOO MODULES */
+.gg-ver-row{display:flex;gap:.7rem;flex-wrap:wrap;margin-bottom:1.8rem;}
+.gg-ver{background:var(--gg-card);border:1.5px solid var(--gg-border);border-radius:8px;padding:.35rem .9rem;font-size:.8rem;font-weight:600;color:var(--gg-text);}
+.gg-ver.cur{background:rgba(126,108,250,.15);border-color:var(--gg-accent);color:var(--gg-accent);}
+.gg-mod-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.9rem;}
+.gg-mod{background:var(--gg-card);border:1px solid var(--gg-border);border-radius:11px;padding:1.1rem;text-align:center;transition:all .2s;}
+.gg-mod:hover{border-color:var(--gg-green);transform:translateY(-2px);}
+.gg-mod-ic{font-size:1.8rem;margin-bottom:.5rem;}
+.gg-mod h4{font-family:var(--gg-fh);font-size:.82rem;font-weight:700;margin-bottom:.15rem;}
+.gg-mod p{font-size:.69rem;color:var(--gg-dim);}
+
+/* SERVICES */
+.gg-srv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem;}
+.gg-srv{background:var(--gg-card);border:1px solid var(--gg-border);border-radius:18px;padding:1.8rem;position:relative;overflow:hidden;transition:all .22s;}
+.gg-srv:hover{border-color:var(--gg-accent);transform:translateY(-4px);}
+.gg-srv.feat{border-color:var(--gg-accent);background:linear-gradient(135deg,rgba(126,108,250,.07),var(--gg-card));}
+.gg-srv-badge{position:absolute;top:1rem;right:1rem;background:var(--gg-accent);color:#fff;font-size:.64rem;font-weight:700;padding:.18rem .55rem;border-radius:4px;letter-spacing:.05em;}
+.gg-srv-n{font-family:var(--gg-fh);font-size:2.8rem;font-weight:800;color:rgba(126,108,250,.1);line-height:1;margin-bottom:.4rem;}
+.gg-srv-ic{font-size:1.9rem;margin-bottom:.7rem;}
+.gg-srv h3{font-family:var(--gg-fh);font-size:1.1rem;font-weight:700;margin-bottom:.5rem;}
+.gg-srv p{font-size:.82rem;color:var(--gg-muted);line-height:1.65;}
+.gg-srv-list{margin-top:.9rem;display:flex;flex-direction:column;gap:.35rem;}
+.gg-srv-list li{font-size:.79rem;color:var(--gg-muted);display:flex;align-items:center;gap:.4rem;}
+.gg-srv-list li::before{content:'→';color:var(--gg-accent);font-size:.75rem;}
+
+/* PROCESS */
+.gg-proc{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;position:relative;}
+.gg-proc::before{content:'';position:absolute;top:29px;left:12%;right:12%;height:2px;background:linear-gradient(90deg,var(--gg-accent),var(--gg-green));z-index:0;}
+.gg-step{display:flex;flex-direction:column;align-items:center;text-align:center;z-index:1;position:relative;}
+.gg-step-n{width:58px;height:58px;border-radius:50%;background:var(--gg-card);border:2px solid var(--gg-accent);display:flex;align-items:center;justify-content:center;font-family:var(--gg-fh);font-size:1.2rem;font-weight:800;color:var(--gg-accent);margin-bottom:.9rem;}
+.gg-step h4{font-family:var(--gg-fh);font-size:.88rem;font-weight:700;margin-bottom:.25rem;}
+.gg-step p{font-size:.73rem;color:var(--gg-dim);line-height:1.5;}
+
+/* PROJECTS */
+.gg-filter-row{display:flex;gap:.55rem;margin-bottom:1.8rem;flex-wrap:wrap;}
+.gg-fb{background:transparent;border:1.5px solid var(--gg-border);border-radius:7px;padding:.38rem .95rem;font-size:.8rem;color:var(--gg-muted);cursor:pointer;transition:all .2s;font-family:var(--gg-fb);}
+.gg-fb.on,.gg-fb:hover{background:var(--gg-accent);border-color:var(--gg-accent);color:#fff;}
+.gg-proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.4rem;}
+.gg-proj{background:var(--gg-card);border:1px solid var(--gg-border);border-radius:17px;overflow:hidden;transition:all .22s;}
+.gg-proj:hover{border-color:var(--gg-green);transform:translateY(-4px);}
+.gg-proj-img{width:100%;height:170px;background:var(--gg-bg3);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.4rem;border-bottom:1px solid var(--gg-border);}
+.gg-proj-img img{width:100%;height:100%;object-fit:cover;}
+.gg-proj-ico{font-size:2.6rem;}
+.gg-upload-hint{font-size:.68rem;color:var(--gg-dim);background:rgba(126,108,250,.07);border:1.5px dashed var(--gg-border);border-radius:7px;padding:.3rem .7rem;}
+.gg-proj-body{padding:1.3rem;}
+.gg-ptags{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.6rem;}
+.gg-ptag{background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.2);border-radius:4px;padding:.12rem .5rem;font-size:.65rem;color:var(--gg-green);font-weight:600;}
+.gg-proj-body h3{font-family:var(--gg-fh);font-size:1rem;font-weight:700;margin-bottom:.35rem;}
+.gg-proj-body p{font-size:.79rem;color:var(--gg-muted);line-height:1.6;}
+.gg-proj-foot{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.3rem;border-top:1px solid var(--gg-border);}
+.gg-proj-lnk{font-size:.75rem;color:var(--gg-accent);font-weight:600;}
+.gg-proj-lnk:hover{color:var(--gg-green);}
+.gg-proj-cat{font-size:.68rem;color:var(--gg-dim);}
+
+/* SCREENSHOT UPLOAD AREA */
+.gg-ss-area{
+  width:100%;height:170px;background:var(--gg-bg3);
+  border:2px dashed var(--gg-border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.5rem;cursor:pointer;transition:border-color .2s;
+  position:relative;overflow:hidden;
+}
+.gg-ss-area:hover{border-color:var(--gg-accent);}
+.gg-ss-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.gg-ss-area span{font-size:.75rem;color:var(--gg-dim);pointer-events:none;}
+.gg-ss-area .gg-ss-icon{font-size:2rem;pointer-events:none;}
+
+/* CERTS */
+.gg-certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.1rem;}
+.gg-cert{background:var(--gg-card);border:1px solid var(--gg-border);border-radius:var(--gg-r);overflow:hidden;transition:all .2s;}
+.gg-cert:hover{border-color:var(--gg-accent);transform:translateY(-3px);}
+.gg-cert-img{width:100%;height:125px;background:var(--gg-bg3);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--gg-border);position:relative;overflow:hidden;}
+.gg-cert-img img{width:100%;height:100%;object-fit:cover;}
+.gg-ribbon{position:absolute;top:8px;left:0;background:var(--gg-red);color:#fff;font-size:.62rem;font-weight:700;padding:.18rem .65rem;border-radius:0 4px 4px 0;letter-spacing:.05em;}
+.gg-cert-ph{display:flex;flex-direction:column;align-items:center;gap:.3rem;color:var(--gg-dim);}
+.gg-cert-ph-ic{font-size:2rem;}
+.gg-cert-ph span{font-size:.68rem;text-align:center;}
+.gg-cert-body{padding:.9rem 1.1rem;}
+.gg-cert-body h4{font-family:var(--gg-fh);font-size:.86rem;font-weight:700;margin-bottom:.2rem;}
+.gg-cert-issuer{font-size:.72rem;color:var(--gg-green);}
+.gg-cert-yr{font-size:.67rem;color:var(--gg-dim);margin-top:.15rem;}
+.gg-cert-add{border-style:dashed!important;cursor:pointer;display:flex;align-items:center;justify-content:center;min-height:200px;}
+.gg-cert-add-inner{text-align:center;padding:2rem;color:var(--gg-dim);}
+.gg-cert-add-inner div:first-child{font-size:1.8rem;margin-bottom:.4rem;}
+.gg-cert-add-inner div:last-child{font-size:.76rem;}
+
+/* TESTIMONIALS */
+.gg-testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem;}
+.gg-testi{background:var(--gg-card);border:1px solid var(--gg-border);border-radius:18px;padding:1.7rem;transition:all .2s;}
+.gg-testi:hover{border-color:var(--gg-accent);}
+.gg-stars{color:#fbbf24;font-size:.95rem;margin-bottom:.7rem;}
+.gg-testi-txt{font-size:.85rem;color:var(--gg-muted);line-height:1.75;font-style:italic;margin-bottom:1.1rem;}
+.gg-testi-au{display:flex;align-items:center;gap:.7rem;}
+.gg-testi-av{width:36px;height:36px;border-radius:50%;background:var(--gg-bg3);border:2px solid var(--gg-accent);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:var(--gg-accent);font-family:var(--gg-fh);}
+.gg-testi-name{font-weight:600;font-size:.86rem;}
+.gg-testi-role{font-size:.71rem;color:var(--gg-dim);}
+
+/* CONTACT */
+.gg-contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;align-items:start;}
+.gg-contact-list{display:flex;flex-direction:column;gap:.9rem;}
+.gg-ccard{background:var(--gg-card);border:1px solid var(--gg-border);border-radius:var(--gg-r);padding:1rem 1.1rem;display:flex;align-items:center;gap:.9rem;transition:border-color .2s;}
+.gg-ccard:hover{border-color:var(--gg-accent);}
+.gg-ccard-ico{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.gg-ccard-lbl{font-size:.68rem;color:var(--gg-dim);display:block;}
+.gg-ccard-val{font-size:.86rem;color:var(--gg-text);font-weight:500;}
+.gg-ccard-val a{color:var(--gg-accent);}
+.gg-form{background:var(--gg-card);border:1px solid var(--gg-border);border-radius:18px;padding:1.8rem;}
+.gg-form h3{font-family:var(--gg-fh);font-size:1.1rem;font-weight:700;margin-bottom:1.3rem;}
+.gg-form-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:.9rem;}
+.gg-fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.9rem;}
+.gg-fg label{font-size:.75rem;color:var(--gg-muted);font-weight:500;}
+.gg-fg input,
+.gg-fg textarea,
+.gg-fg select{
+  background:var(--gg-bg3);
+  border:1.5px solid var(--gg-border);
+  border-radius:8px;
+  padding:.6rem .85rem;
+  color:var(--gg-text);
+  font-size:.85rem;
+  font-family:var(--gg-fb);
+  transition:border-color .2s;
+  outline:none;
+  width:100%;
+}
+.gg-fg input:focus,
+.gg-fg textarea:focus,
+.gg-fg select:focus{border-color:var(--gg-accent);}
+.gg-fg textarea{resize:vertical;min-height:110px;}
+.gg-fg select option{background:var(--gg-bg3);color:var(--gg-text);}
+.gg-submit{
+  width:100%;background:var(--gg-accent);color:#fff;
+  border:none;border-radius:9px;padding:.8rem;
+  font-size:.9rem;font-weight:600;cursor:pointer;
+  font-family:var(--gg-fh);transition:opacity .2s;
+}
+.gg-submit:hover{opacity:.85;}
+.gg-success{
+  display:none;background:rgba(0,212,170,.1);
+  border:1px solid var(--gg-green);border-radius:8px;
+  padding:.9rem;text-align:center;color:var(--gg-green);
+  font-size:.85rem;margin-top:.9rem;
+}
+
+/* FOOTER */
+.gg-footer{background:var(--gg-bg2);border-top:1px solid var(--gg-border);padding:2.5rem 6% 1.8rem;text-align:center;}
+.gg-footer-logo{font-family:var(--gg-fh);font-size:1.4rem;font-weight:800;margin-bottom:.4rem;}
+.gg-footer-logo span{color:var(--gg-accent);}
+.gg-footer-tagline{font-size:.8rem;color:var(--gg-dim);margin-bottom:1.1rem;}
+.gg-social-row{display:flex;gap:.8rem;justify-content:center;margin:1rem 0;}
+.gg-social{width:36px;height:36px;border:1.5px solid var(--gg-border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem;color:var(--gg-muted);transition:all .2s;}
+.gg-social:hover{border-color:var(--gg-accent);color:var(--gg-accent);}
+.gg-footer-nav{display:flex;gap:1.3rem;justify-content:center;flex-wrap:wrap;margin:.8rem 0;}
+.gg-footer-nav a{color:var(--gg-dim);font-size:.79rem;transition:color .2s;}
+.gg-footer-nav a:hover{color:var(--gg-accent);}
+.gg-copy{font-size:.72rem;color:var(--gg-dim);margin-top:.5rem;}
+
+/* DIVIDER */
+.gg-divider{height:1px;background:var(--gg-border);margin:0;}
+
+/* SCROLL-TO-TOP */
+#gg-stt{
+  position:fixed;bottom:1.8rem;right:1.8rem;z-index:9999;
+  width:42px;height:42px;background:var(--gg-accent);
+  border:none;border-radius:9px;color:#fff;font-size:1.1rem;
+  cursor:pointer;opacity:0;pointer-events:none;transition:opacity .3s;
+}
+#gg-stt.show{opacity:1;pointer-events:all;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .gg-hero-grid{grid-template-columns:1fr;}
+  .gg-avatar-card{display:none;}
+  .gg-about-grid{grid-template-columns:1fr;}
+  .gg-contact-grid{grid-template-columns:1fr;}
+  .gg-proc{grid-template-columns:repeat(2,1fr);}
+  .gg-proc::before{display:none;}
+}
+@media(max-width:580px){
+  .gg-hero-grid,.gg-form-row{grid-template-columns:1fr;}
+  .gg-proc{grid-template-columns:1fr;}
+  .gg-stats{gap:1rem;}
+}
+</style>
+
+<div id="gg-portfolio">
+
+<!-- ══ HERO ══════════════════════════════════════════════════════ -->
+<div class="gg-hero" id="gg-home">
+  <div class="gg-hero-bg"></div>
+  <div class="gg-orb gg-orb1"></div>
+  <div class="gg-orb gg-orb2"></div>
+  <div class="gg-hero-grid">
+    <div>
+      <div class="gg-badge"><span class="gg-dot"></span>Available for Projects</div>
+      <h1 class="gg-h1">Odoo Developer<br><span class="gg-accent-text">&amp; Functional</span><br>Consultant</h1>
+      <p class="gg-hero-desc">Building enterprise-grade Odoo solutions — from custom module development to full ERP implementation. Passionate about clean code, OWL components, and scalable architecture.</p>
+      <div class="gg-btn-row">
+        <a href="#gg-projects" class="gg-btn gg-btn-p">View My Work</a>
+        <a href="#gg-contact" class="gg-btn gg-btn-o">Let's Talk</a>
+      </div>
+      <div class="gg-stats">
+        <div><span class="gg-stat-num">19</span><span class="gg-stat-lbl">Odoo Version</span></div>
+        <div><span class="gg-stat-num">4+</span><span class="gg-stat-lbl">Years Exp.</span></div>
+        <div><span class="gg-stat-num">20+</span><span class="gg-stat-lbl">Modules Built</span></div>
+        <div><span class="gg-stat-num">100%</span><span class="gg-stat-lbl">Satisfaction</span></div>
+      </div>
+    </div>
+    <div class="gg-avatar-card">
+      <div class="gg-av-ring"><div class="gg-av-inner">GG</div></div>
+      <div class="gg-av-name">Galana Garoma</div>
+      <div class="gg-av-role">Odoo Developer · Functional Consultant</div>
+      <div class="gg-av-url"><a href="https://galanagaroma.odoo.com" target="_blank">galanagaroma.odoo.com</a></div>
+      <div class="gg-tags">
+        <span class="gg-tag">Odoo 19</span><span class="gg-tag">OWL</span><span class="gg-tag">Python</span>
+        <span class="gg-tag g">PostgreSQL</span><span class="gg-tag g">Docker</span>
+        <span class="gg-tag">XML/QWeb</span><span class="gg-tag g">GitHub</span>
+        <span class="gg-tag g">GitLab</span><span class="gg-tag">Linux</span><span class="gg-tag">ORM</span>
+      </div>
+      <div class="gg-av-loc">📍 Ethiopia &nbsp;|&nbsp; 🌐 Remote Available</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══════════════════════════════════════════════════════ -->
+<div class="gg-sec gg-sec-alt" id="gg-about">
+  <div class="gg-inner">
+    <div class="gg-label">About Me</div>
+    <h2 class="gg-h2">Who I Am</h2>
+    <div class="gg-about-grid">
+      <div>
+        <p class="gg-about-p">I'm <strong>Galana Garoma</strong>, a dedicated Odoo developer and functional consultant based in Ethiopia. My journey in technology started with a <strong>BSc in Computer Engineering</strong>, which gave me strong fundamentals in software architecture, algorithms, and system design.</p>
+        <p class="gg-about-p">I deepened my Odoo expertise through <strong>Odoo 19 Technical Development training</strong> at <strong>Skill Bridge Institute of Technology</strong>, mastering modern Odoo patterns including the <strong>OWL (Odoo Web Library)</strong> JavaScript framework for building reactive frontend components.</p>
+        <p class="gg-about-p">My approach combines technical depth with functional understanding. Whether it's a complex multi-company <strong>payroll customization</strong>, a <strong>custom OWL dashboard</strong>, or a <strong>full Odoo implementation</strong> — I bring precision and passion to every project.</p>
+        <p class="gg-about-p">I'm comfortable across the full Odoo stack: <strong>Python ORM models</strong>, <strong>PostgreSQL optimization</strong>, <strong>QWeb templates</strong>, <strong>OWL components</strong>, and <strong>Docker deployment</strong> on Ubuntu servers.</p>
+        <div class="gg-edu">
+          <div class="gg-edu-ico">🎓</div>
+          <div>
+            <div class="gg-edu-deg">BSc in Computer Engineering</div>
+            <div class="gg-edu-inst">University — Ethiopia</div>
+            <div class="gg-edu-yr">Undergraduate Degree</div>
+          </div>
+        </div>
+        <div class="gg-edu">
+          <div class="gg-edu-ico">📚</div>
+          <div>
+            <div class="gg-edu-deg">Odoo 19 Technical Development</div>
+            <div class="gg-edu-inst">Skill Bridge Institute of Technology</div>
+            <div class="gg-edu-yr">2024–2025 · Certificate Program</div>
+          </div>
+        </div>
+      </div>
+      <div class="gg-info-list">
+        <div class="gg-info-row"><div class="gg-info-ico">👨‍💻</div><div><span class="gg-info-lbl">Role</span><span class="gg-info-val">Odoo Developer &amp; Functional Consultant</span></div></div>
+        <div class="gg-info-row"><div class="gg-info-ico">📍</div><div><span class="gg-info-lbl">Location</span><span class="gg-info-val">Ethiopia · Remote Available</span></div></div>
+        <div class="gg-info-row"><div class="gg-info-ico">🌐</div><div><span class="gg-info-lbl">Website</span><span class="gg-info-val"><a href="https://galanagaroma.odoo.com" target="_blank">galanagaroma.odoo.com</a></span></div></div>
+        <div class="gg-info-row"><div class="gg-info-ico">📦</div><div><span class="gg-info-lbl">Odoo Versions</span><span class="gg-info-val">Odoo 16, 17, 18, 19</span></div></div>
+        <div class="gg-info-row"><div class="gg-info-ico">🛠</div><div><span class="gg-info-lbl">Specialization</span><span class="gg-info-val">Module Dev, OWL, ORM, Functional</span></div></div>
+        <div class="gg-info-row"><div class="gg-info-ico">🐧</div><div><span class="gg-info-lbl">OS</span><span class="gg-info-val">Ubuntu Linux</span></div></div>
+        <div class="gg-info-row"><div class="gg-info-ico">🐳</div><div><span class="gg-info-lbl">DevOps</span><span class="gg-info-val">Docker · GitHub · GitLab</span></div></div>
+        <div class="gg-info-row"><div class="gg-info-ico">🗄</div><div><span class="gg-info-lbl">Database</span><span class="gg-info-val">PostgreSQL</span></div></div>
+        <a href="#gg-contact" class="gg-btn gg-btn-p" style="display:block;text-align:center;margin-top:.8rem;">Get In Touch</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SKILLS ══════════════════════════════════════════════════════ -->
+<div class="gg-sec" id="gg-skills">
+  <div class="gg-inner">
+    <div class="gg-label">Technical Expertise</div>
+    <h2 class="gg-h2">My Skills</h2>
+    <p class="gg-sub">A comprehensive toolkit built for the Odoo ecosystem and modern ERP development workflows.</p>
+    <div class="gg-skills-grid">
+      <div class="gg-sk-card"><div class="gg-sk-ico" style="background:rgba(126,108,250,.1);">🐍</div><h3>Backend Development</h3><p>Robust Odoo modules with Python, ORM models, computed fields, wizards, and API integrations.</p><div class="gg-pills"><span class="gg-pill">Python</span><span class="gg-pill">ORM</span><span class="gg-pill">Wizards</span><span class="gg-pill">APIs</span><span class="gg-pill">Cron Jobs</span></div></div>
+      <div class="gg-sk-card"><div class="gg-sk-ico" style="background:rgba(0,212,170,.1);">⚙️</div><h3>OWL &amp; Frontend</h3><p>Reactive components with OWL (Odoo Web Library), QWeb templates, and custom JS widgets.</p><div class="gg-pills"><span class="gg-pill">OWL</span><span class="gg-pill">QWeb</span><span class="gg-pill">JavaScript</span><span class="gg-pill">XML</span><span class="gg-pill">SCSS</span></div></div>
+      <div class="gg-sk-card"><div class="gg-sk-ico" style="background:rgba(255,107,107,.1);">🗄</div><h3>Database</h3><p>PostgreSQL administration, query optimization, indexing, and Odoo database management.</p><div class="gg-pills"><span class="gg-pill">PostgreSQL</span><span class="gg-pill">SQL</span><span class="gg-pill">DB Tuning</span><span class="gg-pill">Migration</span></div></div>
+      <div class="gg-sk-card"><div class="gg-sk-ico" style="background:rgba(126,108,250,.1);">🐳</div><h3>DevOps &amp; Deployment</h3><p>Containerized Odoo deployments with Docker, CI/CD pipelines via GitHub Actions and GitLab CI.</p><div class="gg-pills"><span class="gg-pill">Docker</span><span class="gg-pill">GitHub</span><span class="gg-pill">GitLab</span><span class="gg-pill">CI/CD</span><span class="gg-pill">Nginx</span></div></div>
+      <div class="gg-sk-card"><div class="gg-sk-ico" style="background:rgba(0,212,170,.1);">🐧</div><h3>Linux System Admin</h3><p>Ubuntu server administration, shell scripting, user management, and Odoo server configuration.</p><div class="gg-pills"><span class="gg-pill">Ubuntu</span><span class="gg-pill">Bash</span><span class="gg-pill">SSH</span><span class="gg-pill">Cron</span><span class="gg-pill">Systemd</span></div></div>
+      <div class="gg-sk-card"><div class="gg-sk-ico" style="background:rgba(255,107,107,.1);">📊</div><h3>Functional Consulting</h3><p>Requirements analysis, business process mapping, user training, and end-to-end ERP implementation.</p><div class="gg-pills"><span class="gg-pill">Requirements</span><span class="gg-pill">Training</span><span class="gg-pill">ERP Impl.</span><span class="gg-pill">GAP Analysis</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ODOO MODULES ══════════════════════════════════════════════ -->
+<div class="gg-sec gg-sec-alt" id="gg-odoo">
+  <div class="gg-inner">
+    <div class="gg-label">Odoo Expertise</div>
+    <h2 class="gg-h2">Odoo Versions &amp; Modules</h2>
+    <p class="gg-sub">Working across Odoo 16 through 19, with deep knowledge of core and custom modules.</p>
+    <div class="gg-ver-row">
+      <span class="gg-ver cur">Odoo 19 ⭐</span>
+      <span class="gg-ver">Odoo 18</span>
+      <span class="gg-ver">Odoo 17</span>
+      <span class="gg-ver">Odoo 16</span>
+      <span class="gg-ver">Community</span>
+      <span class="gg-ver">Enterprise</span>
+    </div>
+    <div class="gg-mod-grid">
+      <div class="gg-mod"><div class="gg-mod-ic">📦</div><h4>Inventory</h4><p>Warehouse &amp; stock</p></div>
+      <div class="gg-mod"><div class="gg-mod-ic">💰</div><h4>Accounting</h4><p>Finance &amp; journals</p></div>
+      <div class="gg-mod"><div class="gg-mod-ic">👥</div><h4>HR &amp; Payroll</h4><p>Employees &amp; payslips</p></div>
+      <div class="gg-mod"><div class="gg-mod-ic">🛒</div><h4>Sales &amp; CRM</h4><p>Orders &amp; pipeline</p></div>
+      <div class="gg-mod"><div class="gg-mod-ic">🏭</div><h4>Manufacturing</h4><p>MRP &amp; production</p></div>
+      <div class="gg-mod"><div class="gg-mod-ic">🌐</div><h4>Website</h4><p>eCommerce &amp; builder</p></div>
+      <div class="gg-mod"><div class="gg-mod-ic">📝</div><h4>Project</h4><p>Tasks &amp; timesheets</p></div>
+      <div class="gg-mod"><div class="gg-mod-ic">📊</div><h4>Reporting</h4><p>Custom QWeb reports</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SERVICES ══════════════════════════════════════════════════ -->
+<div class="gg-sec" id="gg-services">
+  <div class="gg-inner">
+    <div class="gg-label">What I Offer</div>
+    <h2 class="gg-h2">Services</h2>
+    <p class="gg-sub">End-to-end Odoo solutions from module development to full ERP deployment and training.</p>
+    <div class="gg-srv-grid">
+      <div class="gg-srv feat">
+        <div class="gg-srv-badge">POPULAR</div>
+        <div class="gg-srv-n">01</div>
+        <div class="gg-srv-ic">🔧</div>
+        <h3>Module Customization</h3>
+        <p>Custom Odoo module development tailored to your exact business requirements — from simple field additions to complex multi-model workflows.</p>
+        <ul class="gg-srv-list"><li>Custom Python models &amp; ORM</li><li>OWL frontend components</li><li>QWeb reports &amp; views</li><li>Third-party API integration</li><li>Existing module extension</li></ul>
+      </div>
+      <div class="gg-srv">
+        <div class="gg-srv-n">02</div>
+        <div class="gg-srv-ic">🏗</div>
+        <h3>Odoo Development</h3>
+        <p>Full-cycle development of new Odoo applications — architecture design, development, testing, and deployment on your server.</p>
+        <ul class="gg-srv-list"><li>App architecture &amp; design</li><li>Docker-based deployment</li><li>PostgreSQL optimization</li><li>GitLab / GitHub CI pipelines</li><li>Ubuntu server setup</li></ul>
+      </div>
+      <div class="gg-srv">
+        <div class="gg-srv-n">03</div>
+        <div class="gg-srv-ic">🎯</div>
+        <h3>Functional Consulting</h3>
+        <p>Business process analysis and Odoo configuration to align your ERP with real-world operations — no custom code needed.</p>
+        <ul class="gg-srv-list"><li>Requirements &amp; GAP analysis</li><li>Odoo configuration</li><li>Data migration support</li><li>User training sessions</li><li>Go-live support</li></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROCESS ══════════════════════════════════════════════════ -->
+<div class="gg-sec gg-sec-alt">
+  <div class="gg-inner">
+    <div class="gg-label">How I Work</div>
+    <h2 class="gg-h2">My Process</h2>
+    <p class="gg-sub">A structured, transparent workflow from discovery to delivery.</p>
+    <div class="gg-proc">
+      <div class="gg-step"><div class="gg-step-n">01</div><h4>Discovery</h4><p>Understand your business needs and project goals</p></div>
+      <div class="gg-step"><div class="gg-step-n">02</div><h4>Design</h4><p>Plan module architecture and UI wireframes</p></div>
+      <div class="gg-step"><div class="gg-step-n">03</div><h4>Development</h4><p>Build iteratively with regular milestone demos</p></div>
+      <div class="gg-step"><div class="gg-step-n">04</div><h4>Delivery</h4><p>Deploy, train your team, post-go-live support</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROJECTS ══════════════════════════════════════════════════ -->
+<div class="gg-sec" id="gg-projects">
+  <div class="gg-inner">
+    <div class="gg-label">Portfolio</div>
+    <h2 class="gg-h2">Projects</h2>
+    <p class="gg-sub">A selection of Odoo modules, customizations, and implementations I've built.</p>
+    <div class="gg-filter-row">
+      <button class="gg-fb on" onclick="ggFilter('all',this)">All</button>
+      <button class="gg-fb" onclick="ggFilter('module',this)">Modules</button>
+      <button class="gg-fb" onclick="ggFilter('report',this)">Reports</button>
+      <button class="gg-fb" onclick="ggFilter('integration',this)">Integration</button>
+      <button class="gg-fb" onclick="ggFilter('consulting',this)">Consulting</button>
+    </div>
+    <div class="gg-proj-grid" id="gg-proj-grid"></div>
+  </div>
+</div>
+
+<!-- ══ CERTIFICATIONS ════════════════════════════════════════════ -->
+<div class="gg-sec gg-sec-alt" id="gg-certifications">
+  <div class="gg-inner">
+    <div class="gg-label">Credentials</div>
+    <h2 class="gg-h2">Certifications</h2>
+    <p class="gg-sub">Formal training and certifications that validate my Odoo and technical expertise.</p>
+    <div class="gg-certs-grid" id="gg-certs-grid">
+      <div class="gg-cert">
+        <div class="gg-cert-img"><div class="gg-ribbon">FEATURED</div><div class="gg-cert-ph"><div class="gg-cert-ph-ic">📜</div><span>Add your Odoo cert<br>screenshot here</span></div></div>
+        <div class="gg-cert-body"><h4>Odoo 19 Technical Development</h4><div class="gg-cert-issuer">Skill Bridge Institute of Technology</div><div class="gg-cert-yr">2025 · Ethiopia</div></div>
+      </div>
+      <div class="gg-cert">
+        <div class="gg-cert-img"><div class="gg-cert-ph"><div class="gg-cert-ph-ic">🎓</div><span>Add degree scan here</span></div></div>
+        <div class="gg-cert-body"><h4>BSc Computer Engineering</h4><div class="gg-cert-issuer">University Degree · Ethiopia</div><div class="gg-cert-yr">Add year</div></div>
+      </div>
+      <div class="gg-cert">
+        <div class="gg-cert-img"><div class="gg-cert-ph"><div class="gg-cert-ph-ic">🐍</div><span>Upload screenshot</span></div></div>
+        <div class="gg-cert-body"><h4>Python Programming</h4><div class="gg-cert-issuer">Add issuer name</div><div class="gg-cert-yr">Add year</div></div>
+      </div>
+      <div class="gg-cert">
+        <div class="gg-cert-img"><div class="gg-cert-ph"><div class="gg-cert-ph-ic">🐳</div><span>Upload screenshot</span></div></div>
+        <div class="gg-cert-body"><h4>Docker &amp; Containerization</h4><div class="gg-cert-issuer">Add issuer name</div><div class="gg-cert-yr">Add year</div></div>
+      </div>
+      <div class="gg-cert">
+        <div class="gg-cert-img"><div class="gg-cert-ph"><div class="gg-cert-ph-ic">🗄</div><span>Upload screenshot</span></div></div>
+        <div class="gg-cert-body"><h4>PostgreSQL Administration</h4><div class="gg-cert-issuer">Add issuer name</div><div class="gg-cert-yr">Add year</div></div>
+      </div>
+      <div class="gg-cert" style="border-style:dashed;cursor:pointer;" onclick="ggAddCert()">
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;text-align:center;color:var(--gg-dim);">
+          <div style="font-size:2rem;margin-bottom:.5rem;">➕</div>
+          <div style="font-size:.78rem;">Add Certificate</div>
+          <div style="font-size:.68rem;margin-top:.2rem;">Click to add more</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TESTIMONIALS ══════════════════════════════════════════════ -->
+<div class="gg-sec" id="gg-testimonials">
+  <div class="gg-inner">
+    <div class="gg-label">Client Reviews</div>
+    <h2 class="gg-h2">What Clients Say</h2>
+    <p class="gg-sub">Feedback from clients I've worked with on Odoo projects.</p>
+    <div class="gg-testi-grid">
+      <div class="gg-testi"><div class="gg-stars">★★★★★</div><div class="gg-testi-txt">"Galana delivered an exceptional custom HR payroll module for our Ethiopian company. Deep Odoo knowledge, clean code, and delivered on time. Highly recommended!"</div><div class="gg-testi-au"><div class="gg-testi-av">AB</div><div><div class="gg-testi-name">Client Name</div><div class="gg-testi-role">HR Manager · Addis Ababa</div></div></div></div>
+      <div class="gg-testi"><div class="gg-stars">★★★★★</div><div class="gg-testi-txt">"The inventory customization Galana built transformed our warehouse operations. He understood our processes perfectly and the OWL dashboard he built is excellent."</div><div class="gg-testi-au"><div class="gg-testi-av">TC</div><div><div class="gg-testi-name">Client Name</div><div class="gg-testi-role">Operations Director · Trading Co.</div></div></div></div>
+      <div class="gg-testi"><div class="gg-stars">★★★★★</div><div class="gg-testi-txt">"Professional and technically excellent. Galana set up our entire Odoo 18 environment on Docker with PostgreSQL optimization. Server runs flawlessly."</div><div class="gg-testi-au"><div class="gg-testi-av">SK</div><div><div class="gg-testi-name">Client Name</div><div class="gg-testi-role">CTO · Startup</div></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONTACT ══════════════════════════════════════════════════ -->
+<div class="gg-sec gg-sec-alt" id="gg-contact">
+  <div class="gg-inner">
+    <div class="gg-label">Get In Touch</div>
+    <h2 class="gg-h2">Let's Work Together</h2>
+    <p class="gg-sub">Have an Odoo project in mind? I'd love to hear about it. Let's build something great.</p>
+    <div class="gg-contact-grid">
+      <div class="gg-contact-list">
+        <div class="gg-ccard"><div class="gg-ccard-ico" style="background:rgba(126,108,250,.1);">📧</div><div><span class="gg-ccard-lbl">Email</span><span class="gg-ccard-val"><a href="mailto:galana@example.com">galana@example.com</a></span></div></div>
+        <div class="gg-ccard"><div class="gg-ccard-ico" style="background:rgba(0,212,170,.1);">🌐</div><div><span class="gg-ccard-lbl">Odoo Website</span><span class="gg-ccard-val"><a href="https://galanagaroma.odoo.com" target="_blank">galanagaroma.odoo.com</a></span></div></div>
+        <div class="gg-ccard"><div class="gg-ccard-ico" style="background:rgba(255,107,107,.1);">💼</div><div><span class="gg-ccard-lbl">LinkedIn</span><span class="gg-ccard-val"><a href="#" style="color:var(--gg-accent);">linkedin.com/in/galanagaroma</a></span></div></div>
+        <div class="gg-ccard"><div class="gg-ccard-ico" style="background:rgba(126,108,250,.1);">🐙</div><div><span class="gg-ccard-lbl">GitHub</span><span class="gg-ccard-val"><a href="#" style="color:var(--gg-accent);">github.com/galanagaroma</a></span></div></div>
+        <div class="gg-ccard"><div class="gg-ccard-ico" style="background:rgba(0,212,170,.1);">📍</div><div><span class="gg-ccard-lbl">Location</span><span class="gg-ccard-val">Ethiopia · Remote Available</span></div></div>
+        <div class="gg-ccard"><div class="gg-ccard-ico" style="background:rgba(255,107,107,.1);">⚡</div><div><span class="gg-ccard-lbl">Response Time</span><span class="gg-ccard-val">Within 24 hours</span></div></div>
+      </div>
+      <div class="gg-form">
+        <h3>Send a Message</h3>
+        <div class="gg-form-row">
+          <div class="gg-fg"><label>First Name</label><input type="text" placeholder="Abebe"/></div>
+          <div class="gg-fg"><label>Last Name</label><input type="text" placeholder="Bekele"/></div>
+        </div>
+        <div class="gg-fg"><label>Email</label><input type="email" placeholder="abebe@company.com"/></div>
+        <div class="gg-fg"><label>Service Needed</label>
+          <select><option value="">Select a service...</option><option>Module Customization</option><option>Odoo Development</option><option>Functional Consulting</option><option>Odoo Installation &amp; Setup</option><option>Training</option><option>Other</option></select>
+        </div>
+        <div class="gg-fg"><label>Odoo Version</label>
+          <select><option value="">Which version?</option><option>Odoo 19</option><option>Odoo 18</option><option>Odoo 17</option><option>Odoo 16</option><option>Not sure</option></select>
+        </div>
+        <div class="gg-fg"><label>Message</label><textarea placeholder="Tell me about your project, requirements, timeline, and any specific Odoo modules involved..."></textarea></div>
+        <button class="gg-submit" onclick="ggSubmit(this)">Send Message →</button>
+        <div class="gg-success" id="gg-success">✅ Message sent! I'll get back to you within 24 hours.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══════════════════════════════════════════════════ -->
+<div class="gg-footer">
+  <div class="gg-footer-logo">Galana<span>.</span>dev</div>
+  <div class="gg-footer-tagline">Odoo Developer &amp; Functional Consultant · Ethiopia</div>
+  <div class="gg-social-row">
+    <a href="https://galanagaroma.odoo.com" target="_blank" class="gg-social">🌐</a>
+    <a href="#" class="gg-social">💼</a>
+    <a href="#" class="gg-social">🐙</a>
+    <a href="mailto:galana@example.com" class="gg-social">📧</a>
+  </div>
+  <div class="gg-footer-nav">
+    <a href="#gg-about">About</a>
+    <a href="#gg-skills">Skills</a>
+    <a href="#gg-services">Services</a>
+    <a href="#gg-projects">Projects</a>
+    <a href="#gg-certifications">Certifications</a>
+    <a href="#gg-contact">Contact</a>
+  </div>
+  <div class="gg-copy">© 2025 Galana Garoma · Odoo 19 Developer · galanagaroma.odoo.com</div>
+</div>
+
+</div><!-- end #gg-portfolio -->
+
+<button id="gg-stt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+(function(){
+var projects=[
+  {cat:'module',icon:'👥',title:'Custom HR Payroll Module',desc:'Extended Odoo HR Payroll for Ethiopian labour law — allowances, tax slabs, pension deductions, and QWeb payslip reports.',tags:['Odoo 19','Python','QWeb','HR']},
+  {cat:'module',icon:'📦',title:'Multi-Warehouse Inventory Tracker',desc:'OWL dashboard showing real-time stock movements, expiry alerts, and inter-warehouse transfer workflows.',tags:['OWL','Python','PostgreSQL','Odoo 18']},
+  {cat:'report',icon:'📊',title:'Executive Sales Dashboard',desc:'Interactive OWL-powered sales analytics with drill-down by salesperson, product category, and date range.',tags:['OWL','JavaScript','QWeb','Odoo 19']},
+  {cat:'integration',icon:'🔗',title:'Telebirr Payment Integration',desc:'Odoo payment acquirer integrating Ethiopian Telebirr mobile payment API with eCommerce and accounting.',tags:['API','Python','Odoo 18','Payments']},
+  {cat:'module',icon:'🏭',title:'Manufacturing BOM Optimizer',desc:'Custom MRP module with auto-routing, machine capacity planning, and material cost optimization wizards.',tags:['Odoo 17','ORM','Manufacturing']},
+  {cat:'consulting',icon:'🎯',title:'Full ERP Implementation',desc:'End-to-end Odoo 18 implementation for a 50-employee trading company — requirements to go-live training.',tags:['Consulting','Odoo 18','Training']},
+];
+
+function render(filter){
+  var grid=document.getElementById('gg-proj-grid');
+  var list=filter==='all'?projects:projects.filter(function(p){return p.cat===filter;});
+  grid.innerHTML=list.map(function(p){
+    return '<div class="gg-proj">'+
+      '<div class="gg-proj-img">'+
+        '<div class="gg-proj-ico">'+p.icon+'</div>'+
+        '<span class="gg-upload-hint">📷 Add project screenshot</span>'+
+      '</div>'+
+      '<div class="gg-proj-body">'+
+        '<div class="gg-ptags">'+p.tags.map(function(t){return '<span class="gg-ptag">'+t+'</span>';}).join('')+'</div>'+
+        '<h3>'+p.title+'</h3>'+
+        '<p>'+p.desc+'</p>'+
+      '</div>'+
+      '<div class="gg-proj-foot">'+
+        '<a href="#gg-contact" class="gg-proj-lnk">Request Similar →</a>'+
+        '<span class="gg-proj-cat">'+p.cat+'</span>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+window.ggFilter=function(cat,btn){
+  document.querySelectorAll('.gg-fb').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  render(cat);
+};
+
+window.ggSubmit=function(btn){
+  btn.textContent='Sending...';btn.disabled=true;
+  setTimeout(function(){
+    btn.textContent='Send Message →';btn.disabled=false;
+    var m=document.getElementById('gg-success');
+    m.style.display='block';
+    setTimeout(function(){m.style.display='none';},5000);
+  },1400);
+};
+
+window.ggAddCert=function(){
+  var grid=document.getElementById('gg-certs-grid');
+  var addCard=grid.lastElementChild;
+  var c=document.createElement('div');
+  c.className='gg-cert';
+  c.innerHTML='<div class="gg-cert-img"><div class="gg-cert-ph"><div class="gg-cert-ph-ic">🏆</div><span>Upload certificate here</span></div></div><div class="gg-cert-body"><h4>Certificate Title</h4><div class="gg-cert-issuer">Issuer Name</div><div class="gg-cert-yr">Year</div></div>';
+  grid.insertBefore(c,addCard);
+};
+
+window.addEventListener('scroll',function(){
+  document.getElementById('gg-stt').classList.toggle('show',window.scrollY>400);
+});
+
+render('all');
+})();
+</script>
